@@ -36,7 +36,7 @@ const server = app.listen(process.env.PORT, console.log(`Listening on ${process.
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "https://64e20202d46b3e57dbea9613--moonlit-concha-9b4c4b.netlify.app"
+        origin: "https://moonlit-concha-9b4c4b.netlify.app"
     }
 });
 
