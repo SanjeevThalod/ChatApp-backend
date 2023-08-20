@@ -36,9 +36,11 @@ const server = app.listen(process.env.PORT, console.log(`Listening on ${process.
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "https://moonlit-concha-9b4c4b.netlify.app"
+        origin: "*",
+        methods: ["GET", "POST"]
     }
 });
+
 
 io.on('connection', (socket) => {
     console.log('Connected to socket.io');
@@ -63,8 +65,9 @@ io.on('connection', (socket) => {
     socket.on('typing', (room) => socket.to(room).emit('typing'));
     socket.on('stop typing', (room) => socket.to(room).emit('stop typing'));
 
-    socket.off('setup',()=>{
+    socket.removeListener('setup', (userData) => {
         console.log('USER Disconnected');
         socket.leave(userData._id);
-    })
+    });
+    
 })
